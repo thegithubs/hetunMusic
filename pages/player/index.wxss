@@ -1,0 +1,56 @@
+/**pages/player/index.wxss**/
+::-webkit-scrollbar {display: none; }
+.hover {background: #eee; }
+page {background: #333; font-size: 26rpx; padding-bottom: 0!important; }
+.musiclist {position: fixed; bottom: 0; left: 0; background: #fff; width: 100%; border-top: 1rpx solid #eee; line-height: 96rpx; font-size: 28rpx; text-align: center; color: #333; z-index: 99; display: flex; }
+.musiclist > view {flex: 1; border-right: 1rpx solid #eee; }
+.choose {width: 100%; margin: 20rpx 0; white-space: nowrap; overflow-x: scroll; overflow-y: hidden; }
+.choose label {font-size: 28rpx; margin-right: 30rpx; display: inline-block; }
+radio {transform: scale(0.7); margin-right: -10rpx; }
+.music {position: fixed; top: 30%; left: 0; width: 100%; height: 18vh; padding: 20rpx; box-sizing: border-box; z-index: 19; color: #fff; transform: translate3d(0, -50%, 0); transition: all ease-in-out .4s; }
+.music.s {transform: translate3d(100%, -50%, 0); }
+.music.r {transform: translate3d(0, -50%, 0); background: rgba(0,0,0,.5); }
+.inputarea {position: relative; width: 100%; height: 48px; border-radius: 6px; border: 1px solid #eee; }
+.input {outline: none; width: 90%; height: 100%; font-size: 16px; padding: 0 10px; box-sizing: border-box; }
+.icon-close {font-size: 38rpx; color: #eee; margin: 26rpx 0 0 16rpx; }
+.lrc {position: absolute; top: 70rpx; left: 0; width: 100%; height: 72vh; font-size: 28rpx; padding: 0 20rpx; box-sizing: border-box; overflow: hidden; }
+.lrcp {padding-bottom: 32rpx; min-height: 48rpx; line-height: 48rpx; color: #858585; text-align: center; font-size: 32rpx; }
+.lrcp.on {color: #fff; }
+.musicMask {position: fixed; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,.5); z-index: 9; }
+.searchMask {background: rgba(0,0,0,.01); }
+.musicContent {position: fixed; bottom: 0; left: 0; background: #fff; width: 100%; font-size: 28rpx; color: #444; transform: translate3d(0, 100%, 0); transition: transform ease-in-out .4s; z-index: 399;  }
+.list {box-sizing: border-box; }
+.musicContent.showList {transform: translate3d(0, 0, 0); }
+.musicContent.hideList {transform: translate3d(0, 100%, 0); }
+.body {position: relative; width: 100%; height: 100vh; overflow: hidden; }
+.bg {width: 100%; height: 100%; filter: blur(40rpx) brightness(.4); transform: scale(2.4); }
+.modelTxt {font-size: 28rpx!important; }
+.coverPath {position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -78%, 0) rotate(0); width: 440rpx; height: 440rpx; border: 1rpx solid #eee; border-radius: 50%; overflow: hidden; animation: cover linear 14s infinite; box-sizing: border-box; }
+.coverImg {width: 100%; height: 100%; }
+.coverPath.pause {animation-play-state: paused; }
+@keyframes cover{
+  0% {transform: translate3d(-50%, -78%, 0) rotate(0); }
+  100% {transform: translate3d(-50%, -78%, 0) rotate(360deg); }
+}
+.flex {display: flex; }
+.control {position: absolute; bottom: 0; left: 0; width: 100%; line-height: 128rpx; z-index: 3; }
+.flex > view {flex: 1; font-size: 58rpx; color: #fff; text-align: center; }
+.flex > view.mainicon {font-size: 108rpx; }
+.flex > view.ilist {font-size: 42rpx; }
+.mft {position: fixed; bottom: 0; left: 0; z-index: 5; font-size: 28rpx; background: #fff; width: 100%; line-height: 88rpx; border-top: 1rpx solid #eee; text-align: center; }
+.mft > view {color: #333; font-size: 30rpx; border-right: 1rpx solid #eee; }
+.icon-restore, .icon-right {color: #333; font-size: 46rpx; vertical-align: middle; display: inline-block; }
+.icon-right {transform: rotate(90deg); }
+.nowplay, .quality {position: absolute; bottom: 400rpx; color: #fff; text-align: center; width: 100%; left: 0; font-size: 32rpx; padding:0 30rpx; box-sizing:border-box; }
+.author {font-size: 26rpx; color: #999; margin-top: 10rpx; display: inline-block; }
+.quality {font-size: 26rpx; bottom: 320rpx; color: #999; }
+.bar {position: absolute; bottom: 140rpx; left: 0; width: 100%; color: #858585; font-size: 22rpx; z-index: 3; display: flex; padding: 0 40rpx; box-sizing: border-box; }
+.slider {flex: 1; margin-top: -24rpx; height: 24rpx; }
+.curBar {background: #C20C0C; }
+.nomusic {color: #ddd; text-align: center; margin: 50rpx auto; }
+.icon-au {display: inline-block; vertical-align: -1rpx; font-size: 28rpx; margin-left: -10rpx; }
+.showActionSheet {position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: rgba(0,0,0,.5); z-index: 19; }
+.actionSheet {position: absolute; top: 50%; left: 50%; background: #fff; width: 75%; max-height: 85%; transform: translate3d(-50%,-50%, 0); border-radius: 10rpx; padding: 20rpx 0; z-index: 20; overflow-x: hidden; overflow-y: auto; }
+.actionSheet > view {padding: 16rpx 30rpx; font-size: 28rpx; }
+.as-title {color: #888; font-size: 30rpx; padding: 20rpx 30rpx; }
+.showLrc {position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); color: #fff; }

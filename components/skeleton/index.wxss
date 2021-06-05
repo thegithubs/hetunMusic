@@ -1,0 +1,2 @@
+/* components/skeleton/index.wxss */
+@import '/app.wxss';

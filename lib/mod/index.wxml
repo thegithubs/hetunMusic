@@ -1,0 +1,85 @@
+<!--加载模板-->
+<template name="load">
+  <view class="loadTem">
+    <view class="iconfont icon-loading"></view>
+    {{msg || '加载中...'}}
+  </view>
+</template>
+<template name="nothing">
+  <view class="nothing">{{msg || '暂无数据'}}</view>
+</template>
+<!--播放列表模板-->
+<wxs module="m">
+  var concat = function(arr, key){
+    var a = [], k = key || 'name'
+    if (!arr) return
+    arr.forEach(function(i){
+      a.push(i[k])
+    })
+    return a.join('/')
+  }
+  module.exports.concat = concat
+</wxs>
+<template name="playList">
+  <view wx:for="{{(type == 'my' ? myMusic : list)}}" wx:key="*" class="dFlex mlItem {{id == item.id ? 'on' : ''}}" hover-class="hover" data-id="{{item.id}}" data-index="{{index}}" catchtap="play">
+    <view wx:if="{{id == item.id}}" class="playerStatus {{isPlay == 0 ? 'paused' : ''}}">
+      <view class="v1"></view><view class="v2"></view>
+      <view class="v3"></view><view class="v4"></view>
+    </view>
+    <view class="hidden flex1">{{item.name}}<text class="c6 size26"> - {{m.concat(item.ar || item.artists)}}</text></view>
+    <view class="iconfont icon-lajixiang delete" data-index="{{index}}" catchtap="deleteMusic"></view>
+  </view>
+</template>
+<template name="playerList">
+  <view class="maskAll" catchtap="toggleList" hidden="{{isShowList}}"></view>
+  <view class="playlist {{isShowList ? 'off' : 'on'}}" catchtap="returnFalse">
+    <view class="playlist-title">
+      <view class="fl" bindtap="changeSort" class="playlist-title-left" hover-class="hover">{{playSort == 'icon-xunhuan' ? '顺序播放' : (playSort == 'icon-danquxunhuan' ? '单曲循环' : '随机播放')}} <view class="iconfont playSort {{playSort}}"></view></view>
+      <view class="fr">共{{list.length}}首</view>
+    </view>
+    <view class="playlist-bd">
+      <scroll-view scroll-y style="height: {{98 * (list.length > 7 ? 7 : list.length)}}rpx;" scroll-top="{{(cur - 3 < 0 ? 0 : cur - 3) * 98}}rpx" scroll-with-animation>
+        <template is="playList" data="{{list, id}}" />
+      </scroll-view>
+    </view>
+  </view>
+</template>
+<!-- 骨架屏 -->
+<template name="skeleton">
+  <view class="grid list">
+    <view class="pr list-item" wx:for="{{num ? num : 6}}" wx:key="*">
+      <view class="list-img" style="background: #eee; width: 220rpx; height: 200rpx; margin-bottom: 20rpx;"></view>
+      <view class="hidden" style="background: #eee; width: 100%; height: {{h ? h : 68}}rpx;"></view>
+    </view>
+  </view>
+</template>
+<!-- 歌单 -->
+<template name="songList">
+  <view class="grid list">
+    <view class="pr list-item" wx:for="{{(name == 'mySonglist' ? mySonglist : songList)}}" wx:key="{{item.id}}" data-id="{{item.specialid}}" data-type="list" bindtap="go2SongList">
+      <view class="list-img"><image src="{{item.imgurl.replace('{size}', 150)}}" mode="widthFix" /></view>
+      <view class="hidden2">{{item.specialname}}</view>
+      <view wx:if="{{name == 'mySonglist'}}" class="iconfont icon-delete deletethis" data-type="songlist" data-id="{{item.id}}" catchtap="deleteEvent"></view>
+    </view>
+  </view>
+</template>
+<!-- 歌手 -->
+<template name="singer">
+  <view class="grid center list">
+    <view wx:for="{{(name == 'myArtist' ? myArtist : artist)}}" wx:key="{{item.id}}" class="pr list-item" data-picurl="{{item.img1v1Url}}" data-id="{{item.id}}" data-name="{{item.name}}" data-alias="{{item.alias[0] || ''}}" bindtap="go2Artist">
+      <view class="list-img"><image src="{{item.img1v1Url}}?param=300y300" mode="widthFix" wx:if="{{item.img1v1Url}}" /></view>
+      <view class="hidden list-name">{{item.name}}</view>
+      <view wx:if="{{name == 'myArtist'}}" class="iconfont icon-delete deletethis" data-type="artist" data-id="{{item.id}}" catchtap="deleteEvent"></view>
+    </view>
+  </view>
+</template>
+<!-- 新碟 -->
+<template name="disc">
+  <view class="grid list">
+    <view wx:for="{{newList}}" wx:key="{{item.id}}" class="list-item" data-id="{{item.id}}" data-type="album" bindtap="go2disc">
+      <view><image src="{{item.picUrl}}?param=300y300" mode="widthFix" /></view>
+      <view class="hidden">{{item.name}}</view>
+      <view class="c6 size24">{{m.format(item.publishTime)}}</view>
+    </view>
+  </view>
+</template>

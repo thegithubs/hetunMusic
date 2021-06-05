@@ -1,0 +1,5 @@
+<!--components/loading/index.wxml-->
+<view class="loadTem">
+  <view class="iconfont icon-loading"></view>
+  {{msg || '加载中...'}}
+</view>

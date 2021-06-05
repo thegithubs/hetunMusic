@@ -1,0 +1,47 @@
+<!--pages/songList/index.wxml-->
+<wxs module="m">
+  var format = function (stamp) {
+    var unix = getDate(parseInt(stamp)),
+      out = unix.getFullYear() + '-' + (unix.getMonth() + 1) + '-' + unix.getDate()
+    return out
+  }
+  var concat = function(arr, key){
+    var a = [], k = key || 'name'
+    arr.forEach(function(i){
+      a.push(i[k])
+    })
+    return a.join('/')
+  }
+  module.exports.format = format
+  module.exports.concat = concat
+</wxs>
+<import src="/lib/mod/index.wxml"/>
+<view class="songList">
+  <image src="{{album.picUrl}}" mode="center" class="blur" wx:if="{{album.picUrl}}" />
+  <view class="flex coverView">
+    <image src="{{album.picUrl}}?param=400y400" mode="widthFix" class="coverImg" wx:if="{{album.picUrl}}" />
+    <view class="coverImg" style="background: #eee;" wx:else></view>
+    <view class="pr">
+      <view class="size36">{{album.name || ''}}</view>
+      <view class="publishTime">发行时间 {{m.format(album.publishTime || '0')}}</view>
+      <view class="hidden2 songDes">{{album.description || '暂无描述'}}</view>
+    </view>
+  </view>
+</view>
+<view class="titleBar size32" hover-class="hover" bindtap="palyAll">
+  <view class="iconfont icon-timeout icontimeout"></view>播放全部 <text class="c6">(共{{songs.length || 0}}首)</text>
+</view>
+<block wx:if="{{loading}}">
+  <template is="load" />
+</block>
+<view class="songItem" wx:else>
+  <view class="dFlex songItem-n" hover-class="tap" wx:for="{{songs}}" wx:key="{{item.id}}" bindtap="player" data-id="{{item.id}}" data-author="{{m.concat(item.ar)}}">
+    <view class="c6 songItem-index">{{index + 1}}</view>
+    <view class="flex1 songItem-n-info">
+      <view class="size30 hidden">{{item.name}}<text class="c6" wx:if="{{item.alias.length > 0}}"> ({{item.alias[0]}})</text></view>
+      <view class="size24 c6 hidden">{{m.concat(item.ar)}}</view>
+    </view>
+  </view>
+</view>
+
+<Player playerData="{{playerData}}" />

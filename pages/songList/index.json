@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "Player": "/components/player/index"
+  },
+  "navigationBarTitleText": "歌单详情"
+}

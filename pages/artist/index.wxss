@@ -1,0 +1,17 @@
+/* pages/artist/index.wxss */
+.songList {position: relative; height: 420rpx; overflow: hidden; }
+.blur {top: 0; left: 0; width: 100%; height: 100%; filter: brightness(.85) blur(0); transform: scale(1); }
+.songList .name {position: absolute; bottom: 30rpx; left: 30rpx; right: 30rpx; color: #fff; line-height: 70rpx; display: flow-root; }
+.add, .add.isAdd {position: static; transform: translate3d(0, 0, 0); }
+.add.isAdd {background: 0!important; border: 1rpx solid #fff; color: #fff; }
+.coverView {position: relative; z-index: 9; color: #fff; }
+.coverImg {width: 300rpx; margin-right: 30rpx; border-radius: 12rpx; }
+.songDes {position: absolute; bottom: 0; left: 0; color: #ddd; }
+.title {position: sticky; top: 0; background:#fff; height: 100rpx; line-height: 100rpx; box-shadow: 0 1rpx 8rpx rgba(0, 0, 0, .1); font-size: 30rpx; text-align: center; z-index: 9; }
+.songItem-n {border-bottom:1rpx solid #f7f7f7; padding:24rpx 30rpx; }
+.songItem-index {width: 60rpx; line-height: 72rpx; }
+.songItem-n image {width: 78rpx; margin-right: 20rpx; border-radius: 8rpx; }
+.ti {border-left: 4rpx solid #C20C0C; margin-bottom: 28rpx; padding-left: 16rpx; font-size: 32rpx; color: #333; line-height: 1; }
+.singerInfo {padding: 30rpx; line-height: 1.7; color: #666; font-size: 28rpx; }
+.singerInfo .txt {margin-bottom: 48rpx; display: block; }
+.scrollview {height: 100%; overflow: hidden; }

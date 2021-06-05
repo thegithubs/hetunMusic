@@ -1,0 +1,9 @@
+<!--pages/index.wxml-->
+<import src="/lib/mod/index.wxml"/>
+<template is="singer" data="{{artist}}" />
+<block wx:if="{{loading}}">
+  <template is="skeleton" data="{{num: 12}}" />
+</block>
+<template is="nothing" wx:if="{{isEnd}}" data="{{msg: '我是有底线的'}}" />
+
+<Player playerData="{{playerData}}" />

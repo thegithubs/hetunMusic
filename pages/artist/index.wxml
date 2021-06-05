@@ -1,0 +1,102 @@
+<!--pages/artist/index.wxml-->
+<wxs module="m">
+  var lt10 = function(n){
+    return n < 10 ? '0' + n : n
+  }
+  var time = function(n){
+    if (n < 60) return lt(n);
+    return lt10(Math.floor(n/60000)) + ':' + lt10(Math.floor((n/1000)%60))
+  }
+  var concat = function(arr, key){
+    var a = [], k = key || 'name'
+    arr.forEach(function(i){
+      a.push(i[k])
+    })
+    return a.join('/')
+  }
+  var format = function (stamp) {
+    var unix = getDate(parseInt(stamp)),
+      out = unix.getFullYear() + '-' + (unix.getMonth() + 1) + '-' + unix.getDate()
+    return out
+  }
+  module.exports.format = format
+  module.exports.concat = concat
+  module.exports.time = time
+</wxs>
+<import src="/lib/mod/index.wxml"/>
+<view class="songList">
+  <image src="{{picurl}}?param=720y460" mode="widthFix" class="blur" wx:if="{{picurl}}" />
+  <view class="name size36">
+    <view class="fl">
+      {{name}}<text class="size28" style="color: #bbb;" wx:if="{{alias.length > 0}}"> ({{alias[0]}})</text>
+    </view>
+    <view class="fr add {{isAdd ? 'isAdd' : ''}}" data-isadd="{{isAdd ? 1 : -1}}" catchtap="add" hover-class="hover-red" hover-stop-propagation>{{add}}</view>
+  </view>
+</view>
+<view class="title flex">
+  <view class="{{current == 0 ? 'red' : ''}}" data-cur="0" bindtap="change" hover-class="hover"><view class="iconfont icon-timeout icontimeout" catchtap="palyAll" hover-stop-propagation></view>热门单曲 <text class="c6 size24">{{song.length || 0}}</text></view>
+  <view class="{{current == 1 ? 'red' : ''}}" data-cur="1" bindtap="change" hover-class="hover">专辑 <text class="c6 size24">{{albumSize}}</text></view>
+  <view class="{{current == 2 ? 'red' : ''}}" data-cur="2" bindtap="change" hover-class="hover">艺人信息</view>
+</view>
+<swiper current="{{current}}" bindchange="change" style="height: calc(100vh - 198rpx); touch-action: auto;">
+  <swiper-item>
+    <!-- 热门单曲 -->
+    <block wx:if="{{loading}}">
+      <template is="load" />
+    </block>
+    <block wx:else>
+      <scroll-view scroll-y="{{canScroll}}" scroll-top="{{scrollTop}}" class="scrollview">
+        <view class="songItem">
+          <view class="dFlex songItem-n" hover-class="tap" wx:for="{{song}}" wx:key="{{item.id}}" bindtap="player" data-id="{{item.id}}" data-author="{{m.concat(item.ar)}}">
+            <view class="c6 songItem-index">{{index + 1}}</view>
+            <view class="flex1 songItem-n-info">
+              <view class="size30 hidden">{{item.name}}<text class="c6" wx:if="{{item.alia.length > 0}}"> ({{item.alia[0]}})</text></view>
+              <view class="size24 c6 dFlex">
+                <view class="hidden flex1">{{item.al.name}}</view>
+                <view>{{m.time(item.dt)}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </block>
+  </swiper-item>
+  <swiper-item>
+    <!-- 专辑 -->
+    <block wx:if="{{loading1}}">
+      <template is="load" />
+    </block>
+    <block wx:else>
+      <scroll-view scroll-y="{{canScroll}}" scroll-top="{{scrollTop}}" class="scrollview">
+        <view class="dFlex songItem-n" hover-class="tap" wx:for="{{album}}" wx:key="{{item.id}}" bindtap="go2album" data-id="{{item.id}}" data-picurl="{{item.picUrl}}">
+          <view class="dFlex songItem-n-info hidden">
+            <view><image src="{{item.picUrl}}?param=100y100" mode="widthFix" /></view>
+            <view class="flex1">
+              <view class="size30 hidden">{{item.name}} <text class="c6">{{item.alias.length > 0 ? item.alias[0] : ''}}</text></view>
+              <view class="size24 c6">
+                <view class="hidden">{{m.format(item.publishTime)}} 共{{item.size}}首</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </block>
+  </swiper-item>
+  <swiper-item style="height: 100vh; overflow: {{overflowType}};">
+    <block wx:if="{{loading2}}">
+      <template is="load" />
+    </block>
+    <scroll-view scroll-y="{{canScroll}}" scroll-top="{{scrollTop}}" class="scrollview" wx:else>
+      <view class="singerInfo">
+        <view class="ti">歌手简介</view>
+        <text class="txt">{{singerInfo.briefDesc}}</text>
+        <block wx:for="{{singerInfo.introduction}}" wx:key="*">
+          <view class="ti">{{item.ti}}</view>
+          <text class="txt">{{item.txt}}</text>
+        </block>
+      </view>
+    </scroll-view>
+  </swiper-item>
+</swiper>
+
+<Player playerData="{{playerData}}" />

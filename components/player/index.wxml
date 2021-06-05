@@ -1,0 +1,56 @@
+<!--pages/components/player/index.wxml-->
+<wxs module="m">
+  var concat = function(arr, key){
+    var a = [], k = key || 'name'
+    arr.forEach(function(i){
+      a.push(i[k])
+    })
+    return a.join('/')
+  }
+  module.exports.concat = concat
+</wxs>
+<import src="/lib/mod/index" />
+
+<view class="player" bindtap="onGo2player" style="padding-left: 10rpx;" wx:if="{{list.length > 0}}">
+  <view class="dFlex">
+    <swiper current="{{musicCurrent==0?1:musicCurrent}}" class="flex1" duration="{{swiperDuration}}" bindchange="changeTabMusic" bindanimationfinish="finishTabMusic" skip-hidden-item-layout="{{true}}">
+      <block wx:for="{{list}}" wx:key="id" wx:for-index="idx">
+        <swiper-item hidden="{{musicCurrent - 1 != idx && musicCurrent != idx && musicCurrent + 1 != idx}}" data-id="{{item.id}}" data-index="{{idx}}" style="margin-top: 0;">
+          <view class="dFlex">
+            <view class="swiperview">
+              <image src="{{item.al.picUrl || item.album.picUrl}}?param=300y300" class="player-image {{id == item.id && isPlay == 1 ? 'play' : 'pause'}}" wx:if="{{item.al.picUrl || item.album.picUrl}}" />
+              <image class="player-image pause" wx:else />
+              <view class="iconfont mainicon componentBtn {{id == item.id && isPlay == 1 ? 'icon-zanting' : 'icon-bofang'}}" catchtap="onPlay"></view>
+            </view>
+            <view class="flex1">
+              <view class="hidden c3">{{item.name}}</view>
+              <view class="hidden author">{{m.concat(item.ar || item.artists)}}</view>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+      <!-- 填充第一首实现无缝切换 -->
+      <swiper-item hidden="{{musicCurrent + 1 != list.length}}" data-id="{{list[0].id}}" data-index="{{list.length}}" style="margin-top: 0;">
+        <view class="dFlex">
+          <view class="swiperview">
+            <image src="{{list[0].al.picUrl || list[0].album.picUrl}}?param=300y300" class="player-image {{id == item.id && isPlay == 1 ? 'play' : 'pause'}}" wx:if="{{list[0].al.picUrl || list[0].album.picUrl}}" />
+            <image class="player-image pause" wx:else />
+            <view class="iconfont mainicon componentBtn {{id == item.id && isPlay == 1 ? 'icon-zanting' : 'icon-bofang'}}" catchtap="onPlay"></view>
+          </view>
+          <view class="flex1">
+            <view class="hidden c3">{{list[0].name}}</view>
+            <view class="hidden author">{{m.concat(list[0].ar || list[0].artists)}}</view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="iconfont mainicon icon-favorite1 {{isfav == 1 ? 'fav1' : 'fav0'}}" data-id="{{id}}" data-isfav="{{isfav == 1 ? 1 : -1}}" catchtap="favorite"></view>
+    <view class="iconfont icon-icon_threeline_fill mainicon slotfill" catchtap="toggleList" wx:if="{{list.length > 0}}"></view>
+  </view>
+  <view class="progress">
+    <view class="progress-cur" style="width: {{(positionTxt / durationTxt) * 100}}%;"></view>
+  </view>
+
+  <template is="playerList" data="{{isShowList, list, id, cur, playSort}}" />
+  
+</view>

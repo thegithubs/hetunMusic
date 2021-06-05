@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/songList/index",
+    "pages/artist/index",
+    "pages/player/index",
+    "pages/search/index",
+    "pages/disc/index",
+    "pages/singer/index",
+    "pages/playlist/index",
+    "pages/discAll/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#C20C0C",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "white"
+  },
+  "networkTimeout": {
+    "request": 5000
+  },
+  "requiredBackgroundModes": [
+    "audio"
+  ],
+  "sitemapLocation": "sitemap.json"
+}

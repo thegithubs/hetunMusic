@@ -1,0 +1,6 @@
+var format = function (stamp) {
+  var unix = getDate(parseInt(stamp)),
+    out = unix.getFullYear() + '-' + (unix.getMonth() + 1) + '-' + unix.getDate()
+  return out
+}
+module.exports.format = format

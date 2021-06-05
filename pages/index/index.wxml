@@ -1,0 +1,70 @@
+<!--pages/index.wxml-->
+<!-- <wxs src="index.wxs" module="m" /> -->
+<!-- <import src="/lib/mod/index.wxml" /> -->
+<view class="dFlex topbar">
+  <view class="backbtn" hover-class="hover-red" bindtap="showMy">
+    <view class="iconfont {{isMy ? 'icon-wo' : 'icon-back'}}"></view>
+  </view>
+  <input type="text" placeholder="歌曲/歌手/专辑/歌单" class="flex1 size32" bindtap="go2search" disabled />
+</view>
+<scroll-view scroll-y style="height: calc(100vh - 196rpx);" class="homepage {{isMy ? '' : 'hide'}}">
+  <view class="title">推荐歌单<navigator url="../playlist/index" hover-class="hover" class="r">全部歌单</navigator></view>
+  <block wx:if="{{loading0}}">
+    <skeleton-component />
+  </block>
+  <song-list songList="{{songList}}" wx:else />
+  <!-- <view class="title">
+    <view class="fl tabFlex">
+      <view class="{{dsIndex == 0 ? 'c3' : 'c6'}}" data-index="0" bindtap="cds">新碟上架</view>
+      <view class="{{dsIndex == 1 ? 'c3' : 'c6'}}" data-index="1" bindtap="cds">热门歌手</view>
+    </view>
+    <navigator url="../discAll/index" hover-class="hover" class="r" hidden="{{dsIndex != 0}}">全部新碟</navigator>
+    <navigator url="../singer/index" hover-class="hover" class="r" hidden="{{dsIndex == 0}}">全部歌手</navigator>
+  </view>
+  <swiper current="{{dsIndex}}" bindchange="cdschange" style="height: 690rpx">
+    <swiper-item>
+      <block wx:if="{{loading2}}">
+        <template is="skeleton" data="{{h: 38}}" />
+      </block>
+      <template is="disc" data="{{newList}}" wx:else />
+    </swiper-item>
+    <swiper-item>
+      <block wx:if="{{loading1}}">
+        <template is="skeleton" data="{{h: 38}}" />
+      </block>
+      <template is="singer" data="{{artist}}" wx:else />
+    </swiper-item>
+  </swiper> -->
+</scroll-view>
+<!-- 我的相关 -->
+<!-- <scroll-view style="height: calc(100vh - 196rpx);" class="my {{isMy ? '' : 'show'}}">
+  <view class="flex">
+    <view class="title {{tabIndex == 0 ? 'on' : ''}}" hover-class="hover" data-index="0" bindtap="swiperTab">音乐<text class="c6 size28"> ({{myMusic.length}})</text></view>
+    <view class="title {{tabIndex == 1 ? 'on' : ''}}" hover-class="hover" data-index="1" bindtap="swiperTab">歌单<text class="c6 size28"> ({{mySonglist.length}})</text></view>
+    <view class="title {{tabIndex == 2 ? 'on' : ''}}" hover-class="hover" data-index="2" bindtap="swiperTab">歌手<text class="c6 size28"> ({{myArtist.length}})</text></view>
+  </view>
+  <swiper style="height: 100vh;" current="{{tabIndex}}" bindchange="swiperChange">
+    <swiper-item>
+      <block wx:if="{{myMusic.length == 0}}">
+        <template is="nothing" data="{{msg: '您还没有收藏任何音乐'}}" />
+      </block>
+      <scroll-view scroll-y style="height: 100vh;" wx:else>
+        <template is="playList" data="{{myMusic, id, type: 'my'}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <block wx:if="{{mySonglist.length == 0}}">
+        <template is="nothing" data="{{msg: '您还没有收藏任何歌单'}}" />
+      </block>
+      <template is="songList" data="{{mySonglist, name: 'mySonglist'}}" wx:else />
+    </swiper-item>
+    <swiper-item>
+      <block wx:if="{{myArtist.length == 0}}">
+        <template is="nothing" data="{{msg: '您还没有收藏任何歌手'}}" />
+      </block>
+      <template is="singer" data="{{myArtist, name: 'myArtist'}}" wx:else />
+    </swiper-item>
+  </swiper>
+</scroll-view>
+
+<Player playerData="{{playerData}}" bindbdfavorite="bdfavorite" /> -->

@@ -1,0 +1,76 @@
+<!--pages/player/index.wxml-->
+<wxs module="m">
+  var concat = function(arr, key){
+    var a = [], k = key || 'name'
+    arr.forEach(function(i){
+      a.push(i[k])
+    })
+    return a.join('/')
+  }
+  module.exports.concat = concat
+</wxs>
+<import src="/lib/mod/index" />
+
+<block wx:if="{{hasMusic}}">
+  <view class="body" bindtap="changeCover">
+    <view class="flex control">
+      <view class="flex">
+        <view class="" catchtap="changeSort" class="modelTxt">{{modelTxt}}</view>
+        <view class="iconfont icon-previous_step" catchtap="conPrev"></view>
+      </view>
+      <view class="iconfont mainicon {{isPlay == 1 ? 'icon-play' : 'icon-timeout'}}" catchtap="conPlay"></view>
+      <view class="flex">
+        <view class="iconfont icon-next" catchtap="conNext"></view>
+        <view class="iconfont ilist icon-icon_threeline_fill" catchtap="toggleList"></view>
+      </view>
+    </view>
+    <view class="bar">
+      <view class="progresstime">{{position}}</view>
+      <view class="slider" style="flex: 1" catchtap="returnFalse">
+        <slider catchchange="sliderchange" catchchanging="sliderchanging" activeColor="#C20C0C" min="0" max="{{durationTxt}}" value="{{positionTxt}}" block-size="12" />
+      </view>
+      <view class="progresstime">{{duration}}</view>
+    </view>
+    <image class="bg" src="{{pic}}" />
+
+    <view hidden="{{!showCover}}">
+      <view class="nowplay">{{title}}
+        <view class="author" catchtap="getAuthor" data-author="{{author}}">{{author}} <view class="iconfont icon-next icon-au"></view></view>
+      </view>
+      <view class="quality" catchtap="quality">音质：{{qualityTxt}} <view class="iconfont icon-next icon-au"></view></view>
+      <view class="coverPath {{isPlay == 1 ? '' : 'pause'}}">
+        <image src="{{pic}}" mode="scaleToFill" class="coverImg {{isPlay == 1 ? '' : 'pause'}}" />
+      </view>
+    </view>
+
+    <view class="lrc" hidden="{{showCover}}">
+      <view class="showLrc" wx:if="{{!showLrc}}">正在加载歌词...</view>
+      <block wx:else>
+        <scroll-view scroll-y scroll-with-animation scroll-into-view="{{scrollIntoView}}" style="height: 100vh; -webkit-overflow-scrolling: touch; overflow: scroll;">
+          <view wx:if="{{lrcArray.length > 0}}" style="height: {{(lrcArray.length+5)*(hasEn ? 64 : 40)}}px;">
+              <view wx:for="{{lrcArray}}" wx:key="*" id="lrcRow{{index}}" class="lrcp {{nowtime >= lrctime[index] && nowtime < lrctime[index+1] ? 'on' : ''}}"><text>{{item}}</text></view>
+          </view>
+          <view id="lrc" wx:else>
+            <view class="nomusic">无歌词或纯音乐，请欣赏</view>
+          </view>
+        </scroll-view>
+      </block>
+    </view>
+
+  </view>
+</block>
+<block wx:else>
+  <view>无法播放</view>
+</block>
+
+<template is="playerList" data="{{isShowList, list, id, cur, playSort}}" />
+
+<view class="showActionSheet" bindtap="hideSheet" wx:if="{{showActionSheet}}"></view>
+<view class="actionSheet" wx:if="{{showActionSheet}}">
+  <view class="as-title">请选择要查看的歌手</view>
+  <view wx:for="{{authors}}" wx:key="*" data-author="{{item}}" data-index="{{index}}" data-authorid="{{authorid[index]}}" bindtap="chooseAuthor" hover-class="hover" class="hidden">{{item}}</view>
+</view>
+
+<view id="hidePlayer">
+  <Player playerData="{{playerData}}" isPlay="{{isPlay}}" id="playComponent" />
+</view>

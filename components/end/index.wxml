@@ -1,0 +1,2 @@
+<!--components/end/index.wxml-->
+<view class="nothing">{{msg || '暂无数据'}}</view>

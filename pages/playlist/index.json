@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "Player": "/components/player/index",
+    "song-list": "/components/songlist/index",
+    "loading-component": "/components/loading/index",
+    "end-component": "/components/end/index"
+  },
+  "navigationBarTitleText": "歌单广场"
+}

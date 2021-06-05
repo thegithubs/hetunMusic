@@ -1,0 +1,18 @@
+<!--components/songlist/index.wxml-->
+<wxs src="/utils/format.wxs" module="util" />
+<view class="grid list">
+  <view
+    class="pr list-item"
+    wx:for="{{songList}}"
+    wx:key="specialid"
+    data-id="{{item.specialid}}"
+    data-type="list"
+    bindtap="go2SongList"
+  >
+    <view class="list-img">
+      <image src="{{util.imgFormat(item.imgurl)}}" mode="widthFix" />
+    </view>
+    <view class="hidden2">{{item.specialname}}</view>
+    <view wx:if="{{name == 'mySonglist'}}" class="iconfont icon-delete deletethis" data-type="songlist" data-id="{{item.id}}" catchtap="deleteEvent"></view>
+  </view>
+</view>

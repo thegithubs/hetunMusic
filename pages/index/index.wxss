@@ -1,0 +1,22 @@
+/**pages/index/index.wxss**/
+page {overflow: hidden; }
+.homepage {transform: translate3d(0, 0, 0); transition: all ease-in-out .4s; }
+.homepage.hide {transform: translate3d(100%, 0, 0); }
+.title {margin: 36rpx 30rpx; font-size: 32rpx; color: #111; }
+.list {padding: 0 30rpx; }
+.list-item {overflow: hidden; }
+.list-item image {width: 100%; height: 100%; border-radius: 6rpx; }
+.r {border: 1rpx solid #eee; height: 32rpx; line-height: 32rpx; font-size: 28rpx; color: #444; padding: 6rpx 20rpx; border-radius: 32rpx; float: right; }
+.topbar {padding-left: 0!important; }
+.backbtn {position: relative; top: -14rpx; width: 98rpx; height: 98rpx; line-height: 98rpx; text-align: center; }
+.icon-wo, .icon-back {color: #fff; font-size: 36rpx; }
+.icon-back {font-weight: bold; font-size: 42rpx; }
+swiper-item {margin-top: 30rpx; }
+.my {position: fixed; top: 98rpx; left: 0; bottom: 0; right: 0; background: #fff; padding-bottom: 98rpx; z-index: 198; transform: translate3d(-100%, 0, 0); transition: all ease-in-out .4s; overflow-y: auto; }
+.my.show {transform: translate3d(0, 0, 0); }
+.my .title {position: sticky; top: 0; background: #f8f8f8; color: #111; margin: 0; padding: 24rpx 0; text-align: center; font-weight: normal; }
+.my .title.on {color: red; }
+.my .title text {font-weight: normal; }
+.my .title .iconfont {font-weight: normal; color: #999; margin-top: 4rpx; }
+.tabFlex > view {margin-right: 30rpx; float: left; }
+.tabFlex > view.c6, .title navigator {font-weight: normal; }

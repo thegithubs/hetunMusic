@@ -1,0 +1,2 @@
+/* pages/songList/index.wxss */
+.publishTime {font-size: 24rpx; color: #999; margin-top: 18rpx; }

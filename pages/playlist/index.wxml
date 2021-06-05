@@ -1,0 +1,17 @@
+<!--pages/playlist.wxml-->
+<scroll-view scroll-x class="sub">
+  <view
+    wx:for="{{sub}}"
+    wx:key="id"
+    data-tagid="{{item.special_tag_id}}"
+    bindtap="changeSub"
+    class="subitem {{tagid == item.special_tag_id ? 'on' : ''}}"
+  >
+    {{item.name}}
+  </view>
+</scroll-view>
+<loading-component wx:if="{{songList.length <= 0}}" />
+<song-list songList="{{songList}}" wx:else />
+<end-component wx:if="{{isEnd}}" />
+
+<!-- <Player playerData="{{playerData}}" /> -->

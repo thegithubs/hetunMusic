@@ -1,0 +1,30 @@
+<!--pages/songList/index.wxml-->
+<view class="songList">
+  <image src="{{result.coverImgUrl}}" mode="center" class="blur" wx:if="{{result.coverImgUrl}}" />
+  <view class="flex coverView">
+    <image src="{{result.coverImgUrl}}?param=400y400" mode="widthFix" class="coverImg" wx:if="{{result.coverImgUrl}}" />
+    <view class="coverImg" style="background: #eee;" wx:else></view>
+    <view class="pr">
+      <view class="size36">{{result.name}}</view>
+      <view class="hidden2 songDes">{{result.description || '暂无描述'}}</view>
+    </view>
+  </view>
+</view>
+<view class="titleBar size32" hover-class="hover" bindtap="palyAll">
+  <view class="iconfont icon-timeout icontimeout"></view>播放全部 <text class="c6 size28">(共{{result.tracks.length || 0}}首)</text>
+  <view class="add {{isAdd ? 'isAdd' : ''}}" data-isadd="{{isAdd ? 1 : -1}}" catchtap="add" hover-class="hover-red" hover-stop-propagation>{{add}} {{m.lt10w(result.subscribedCount) || 0}}</view>
+</view>
+<block wx:if="{{loading}}">
+  <template is="load" />
+</block>
+<view class="songItem" wx:else>
+  <view class="dFlex songItem-n" hover-class="tap" wx:for="{{result.tracks}}" wx:key="{{item.id}}" bindtap="player" data-id="{{item.id}}" data-author="{{m.concat(item.artists)}}">
+    <view class="c6 songItem-index">{{index + 1}}</view>
+    <view class="flex1 songItem-n-info">
+      <view class="size30 hidden">{{item.name}}<text class="c6" wx:if="{{item.alias.length > 0}}"> ({{item.alias[0]}})</text></view>
+      <view class="size24 c6 hidden">{{m.concat(item.artists)}} - {{item.album.name}}</view>
+    </view>
+  </view>
+</view>
+
+<Player playerData="{{playerData}}" />

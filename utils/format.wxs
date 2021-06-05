@@ -1,0 +1,7 @@
+var imgFormat = function(img, size = 150) {
+  return img.replace('{size}', size);
+}
+
+module.exports = {
+  imgFormat: imgFormat
+}

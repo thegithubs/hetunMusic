@@ -1,0 +1,5 @@
+/* components/songlist/index.wxss */
+@import '/app.wxss';
+.list {padding: 0 30rpx; }
+.list-item {overflow: hidden; }
+.list-item image {width: 100%; height: 100%; border-radius: 6rpx; }

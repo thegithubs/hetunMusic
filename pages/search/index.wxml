@@ -1,0 +1,127 @@
+<!--pages/search/index.wxml-->
+<wxs module="m">
+  var format = function (stamp) {
+    var unix = getDate(parseInt(stamp)),
+      out = unix.getFullYear() + '-' + (unix.getMonth() + 1) + '-' + unix.getDate()
+    return out
+  }
+  var concat = function(arr, key){
+    var a = [], k = key || 'name'
+    arr.forEach(function(i){
+      a.push(i[k])
+    })
+    return a.join('/')
+  }
+  module.exports.format = format
+  module.exports.concat = concat
+</wxs>
+<import src="/lib/mod/index.wxml"/>
+<view class="topbar">
+  <input type="text" placeholder="歌曲/歌手/专辑/歌单" class="size32" focus bindinput="input" data-ev="hand" value="{{value}}" bindconfirm="search" />
+</view>
+<view class="searchKey" wx:if="{{showHistory}}">
+  <view class="searchKey-title">
+    <view class="fl size32">搜索记录</view>
+    <view class="fr size24 c6" bindtap="clearAll" wx:if="{{searchKey.length > 0}}">清除全部 <view class="iconfont icon-lajixiang size26"></view></view>
+  </view>
+  <view wx:if="{{searchKey.length <= 0}}" class="c6 size28">搜索记录会显示在这里(最多显示20条)～</view>
+  <block wx:else>
+    <view wx:for="{{searchKey}}" hover-class="hover" wx:key="*" bindtap="rSearch" data-value="{{item}}" class="searchKeyItem">{{item}}</view>
+  </block>
+</view>
+<block wx:else>
+  <view class="flex type">
+    <view bindtap="tab" data-idx="0" data-type="song" class="{{current == 0 ? 'on' : ''}}">单曲</view>
+    <view bindtap="tab" data-idx="1" data-type="songList" class="{{current == 1 ? 'on' : ''}}">歌单</view>
+    <view bindtap="tab" data-idx="2" data-type="singer" class="{{current == 2 ? 'on' : ''}}">歌手</view>
+    <view bindtap="tab" data-idx="3" data-type="album" class="{{current == 3 ? 'on' : ''}}">专辑</view>
+  </view>
+  <swiper current="{{current}}" bindchange="change" class="swiper">
+    <swiper-item><!--单曲-->
+      <scroll-view scroll-y bindscrolltolower="onBottom" scroll-top="{{top}}" style="height: 100vh;">
+        <view class="songItem">
+          <block wx:if="{{fn[0].length > 0}}">
+            <view class="dFlex songItem-n" hover-class="tap" wx:for="{{fn[0]}}" wx:key="{{item.id}}" bindtap="player" data-id="{{item.id}}" data-author="{{m.concat(item.ar)}}">
+              <view class="flex1 songItem-n-info">
+                <view class="size30 hidden">{{item.name}}<text class="c6" wx:if="{{item.alia.length > 0}}"> ({{item.alia[0]}})</text></view>
+                <view class="size24 c6">
+                  <view class="hidden">{{m.concat(item.ar)}}<text> - {{item.al.name}}</text></view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <block wx:else>
+            <template is="nothing" wx:if="{{!loading0}}" />
+          </block>
+          <template is="load" wx:if="{{loading0}}" />
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item><!--歌单-->
+      <scroll-view scroll-y bindscrolltolower="onBottom" scroll-top="{{top}}" style="height: 100vh;">
+        <view class="songItem">
+          <block wx:if="{{fn[1].length > 0}}">
+            <view class="dFlex songItem-n" hover-class="tap" wx:for="{{fn[1]}}" wx:key="{{item.id}}" bindtap="go2songlist" data-id="{{item.id}}">
+              <view class="dFlex songItem-n-info">
+                <view><image src="{{item.coverImgUrl}}?param=100y100" mode="widthFix" /></view>
+                <view class="flex1">
+                  <view class="size30 hidden">{{item.name}}</view>
+                  <view class="size24 c6">
+                    <view class="hidden">{{item.trackCount}}首 by {{item.creator.name}} {{item.bookCount}}次收藏</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <block wx:else>
+            <template is="nothing" wx:if="{{!loading1}}" />
+          </block>
+          <template is="load" wx:if="{{loading1}}" />
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item><!--歌手-->
+      <scroll-view scroll-y bindscrolltolower="onBottom" scroll-top="{{top}}" style="height: 100vh;">
+        <view class="songItem">
+          <block wx:if="{{fn[2].length > 0}}">
+            <view class="dFlex songItem-n" hover-class="tap" wx:for="{{fn[2]}}" wx:key="{{item.id}}" bindtap="go2artist" data-copyright="{{item.privilege.st}}" data-name="{{item.name}}" data-author="{{item.ar[0].name}}" data-id="{{item.id}}" data-picurl="{{item.al.picUrl}}">
+              <view class="dFlex songItem-n-info">
+                <view><image src="{{item.img1v1Url}}?param=100y100" mode="widthFix" /></view>
+                <view class="flex1 size30 hidden" style="line-height: 78rpx;">{{item.name}}</view>
+              </view>
+            </view>
+          </block>
+          <block wx:else>
+            <template is="nothing" wx:if="{{!loading2}}" />
+          </block>
+          <template is="load" wx:if="{{loading2}}"/>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item><!--专辑-->
+      <scroll-view scroll-y bindscrolltolower="onBottom" scroll-top="{{top}}" style="height: 100vh;">
+        <view class="songItem">
+          <block wx:if="{{fn[3].length > 0}}">
+            <view class="dFlex songItem-n" hover-class="tap" wx:for="{{fn[3]}}" wx:key="{{item.id}}" bindtap="go2album" data-id="{{item.id}}" data-picurl="{{item.al.picUrl}}">
+              <view class="dFlex songItem-n-info">
+                <view><image src="{{item.picUrl}}?param=100y100" mode="widthFix" /></view>
+                <view class="flex1">
+                  <view class="size30 hidden">{{item.name}}</view>
+                  <view class="size24 c6">
+                    <view class="hidden">{{m.format(item.publishTime)}}发行</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <block wx:else>
+            <template is="nothing" wx:if="{{!loading3}}" />
+          </block>
+          <template is="load" wx:if="{{loading3}}" />
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</block>
+
+<Player playerData="{{playerData}}" />

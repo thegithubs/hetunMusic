@@ -1,0 +1,9 @@
+<!--pages/index.wxml-->
+<wxs src="index.wxs" module="m" />
+<import src="/lib/mod/index.wxml"/>
+<template is="disc" data="{{newList}}" wx:if="{{newList.length > 0}}" />
+<block wx:if="{{loading}}">
+  <template is="skeleton" data="{{num: 12, h: 38}}" />
+</block>
+
+<Player playerData="{{playerData}}" />

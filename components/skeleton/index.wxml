@@ -1,0 +1,7 @@
+<!--components/skeleton/index.wxml-->
+<view class="grid list">
+  <view class="pr list-item" wx:for="{{num ? num : 6}}" wx:key="*this">
+    <view class="list-img" style="background: #eee; width: 220rpx; height: 200rpx; margin-bottom: 20rpx;"></view>
+    <view class="hidden" style="background: #eee; width: 100%; height: {{h ? h : 68}}rpx;"></view>
+  </view>
+</view>
