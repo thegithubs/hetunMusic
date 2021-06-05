@@ -1,1 +1,4 @@
 /* pages/songList/index.wxss */
+.icon-favorite {
+  font-size: 32rpx;
+}

@@ -1,1 +1,6 @@
 /* components/end/index.wxss */
+.nothing {
+  text-align: center;
+  margin: 40rpx 0;
+  color: #999;
+}

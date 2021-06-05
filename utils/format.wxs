@@ -1,7 +1,22 @@
 var imgFormat = function(img, size = 150) {
   return img.replace('{size}', size);
 }
+var concat = function(arr, key){
+  var a = [], k = key || 'name'
+  if (!arr) return
+  arr.forEach(function(i){
+    a.push(i[k])
+  })
+  return a.join('/')
+};
+var lt10w = function(n){
+  var max = 100000;
+  if (n > max) return parseFloat(n / max).toFixed(1) + '万';
+  return n;
+};
 
 module.exports = {
-  imgFormat: imgFormat
+  imgFormat: imgFormat,
+  concat: concat,
+  lt10w: lt10w,
 }

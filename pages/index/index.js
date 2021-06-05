@@ -1,7 +1,8 @@
 // pages/index.js
-const App = getApp(), url = App.globalData.url;
+const app = getApp();
 import m from '../../lib/main.js'
 // const backgroundAudioManager = wx.getBackgroundAudioManager()
+
 Page({
   data: {
     homeCurrent: 0,
@@ -34,14 +35,12 @@ Page({
   },
   onSongList(){
     //推荐歌单
-    wx.request({
-      url: `${url}/v5/special/recommend?recommend_expire=0&sign=52186982747e1404d426fa3f2a1e8ee4&plat=0&uid=0&version=9108&page=1&area_code=1&appid=1005&mid=286974383886022203545511837994020015101&_t=1545746286`,
-      success: res => {
-        this.setData({
-          loading0: false,
-          songList: res.data.data.list.splice(0, 6)
-        })
-      }
+    app.get('/playlist/list?limit=6')
+    .then(res => {
+      this.setData({
+        loading0: false,
+        songList: res.playlists
+      })
     })
   },
   onArtist(){

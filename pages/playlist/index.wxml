@@ -3,9 +3,9 @@
   <view
     wx:for="{{sub}}"
     wx:key="id"
-    data-tagid="{{item.special_tag_id}}"
+    data-name="{{item.name}}"
     bindtap="changeSub"
-    class="subitem {{tagid == item.special_tag_id ? 'on' : ''}}"
+    class="subitem {{name == item.name ? 'on' : ''}}"
   >
     {{item.name}}
   </view>

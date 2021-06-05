@@ -1,2 +1,2 @@
 <!--components/end/index.wxml-->
-<view class="nothing">{{msg || '暂无数据'}}</view>
+<view class="nothing">{{msg || '我也是有底线的'}}</view>
