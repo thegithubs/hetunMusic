@@ -1,4 +1,4 @@
-const baseUrl = 'https://music.163.com/api';
+const baseUrl = '';
 
 const request = (url, data, method = 'GET') => {
   return new Promise((r, j) => {
