@@ -14,4 +14,4 @@
 <song-list songList="{{songList}}" wx:else />
 <end-component wx:if="{{isEnd}}" />
 
-<!-- <Player playerData="{{playerData}}" /> -->
+<Player />

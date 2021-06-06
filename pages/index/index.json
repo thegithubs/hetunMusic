@@ -3,6 +3,5 @@
     "Player": "/components/player/index",
     "song-list": "/components/songlist/index",
     "skeleton-component": "/components/skeleton/index"
-  },
-  "navigationBarTitleText": "全平台云音乐"
+  }
 }

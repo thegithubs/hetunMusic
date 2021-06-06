@@ -1,9 +1,10 @@
-const baseUrl = '';
+const baseUrl = 'https://music.163.com/api';
 
-const request = (url, data, method = 'GET') => {
+const request = (url, data, params) => {
+  const { method, full } = params;
   return new Promise((r, j) => {
     wx.request({
-      url: `${baseUrl}${url}`,
+      url: full ? url : `${baseUrl}${url}`,
       data,
       method,
       success: res => {
@@ -17,12 +18,18 @@ const request = (url, data, method = 'GET') => {
   }).catch(() =>{});
 };
 
-const get = (url, data = undefined) => {
-  return request(url, data);
+const get = (url, params) => {
+  return request(url, undefined, {
+    method: 'GET',
+    ...params,
+  });
 };
 
-const post = (url, data) => {
-  return request(url, data, 'POST');
+const post = (url, data, params) => {
+  return request(url, data, {
+    method: 'POST',
+    ...params,
+  });
 };
 
 module.exports = {

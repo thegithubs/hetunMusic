@@ -2,20 +2,3 @@
 @import '/lib/iconfont.wxss';
 @import '/app.wxss';
 .player {position: fixed; bottom: 0; left: 0; background: rgba(255, 255, 255, .9); width: 100%; height: 98rpx; border-top: 1rpx solid #eee; padding: 14rpx 30rpx; z-index: 199; box-sizing: border-box; }
-#hidePlayer .player {bottom: -100%; }
-.flex1 {flex: 1; margin: 0 20rpx; overflow: hidden; }
-.player-image {background: #eee; width: 70rpx; height: 70rpx; border-radius: 50%; filter: brightness(.8); animation: player linear 16s infinite; }
-.player-image.pause {animation-play-state: paused; }
-@keyframes player{
-  0% {transform: rotate(0deg); }
-  100% {transform: rotate(360deg); }
-}
-.author {font-size: 22rpx; color: #999; }
-.mainicon {font-size: 86rpx; color: #454545; line-height: .8; }
-.componentBtn {position: absolute; top: 50%; left: 18rpx; font-size: 36rpx; color: #fff; line-height: .8; transform: translateY(-50%); }
-.icon-favorite1 {font-size: 50rpx; line-height: 1; vertical-align: middle; margin-top: 10rpx; margin-right: 14rpx; }
-.fav1 {color: #C20C0C; }
-.fav0 {color: #999; }
-.progress {position: absolute; bottom: 0; left: 0; background: #eee; width: 100%; height: 6rpx; }
-.progress-cur {position: absolute; background: #C20C0C; height: 100%; }
-.swiperview {position: relative; width: 70rpx; height: 70rpx; }

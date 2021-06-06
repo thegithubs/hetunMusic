@@ -50,9 +50,12 @@ Page({
     })
     wx.setStorageSync('add_songList', old.concat(d))
   },
-  player(e){
+  go2player(e){
     //播放单曲
-    player(e.currentTarget.dataset.id, this)
+    // player(e.currentTarget.dataset.id, this)
+    const { id } = e.currentTarget.dataset;
+    const playCurrent = this.data.result.tracks.find(i => i.id === id);
+    this.selectComponent('#player').playCurrent(playCurrent);
   },
   palyAll(){
     //播放全部歌曲

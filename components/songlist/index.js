@@ -1,5 +1,4 @@
 // components/songlist/index.js
-import util from '../../utils/util';
 
 Component({
   properties: {
@@ -16,8 +15,5 @@ Component({
         url: `../songList/index?id=${d.id}&type=${d.type}`
       })
     },
-    imgsize(img){
-      return util.imgFormat(img);
-    }
   }
 })

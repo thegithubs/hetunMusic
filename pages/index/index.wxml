@@ -66,5 +66,6 @@
     </swiper-item>
   </swiper>
 </scroll-view>
+-->
 
-<Player playerData="{{playerData}}" bindbdfavorite="bdfavorite" /> -->
+<Player />

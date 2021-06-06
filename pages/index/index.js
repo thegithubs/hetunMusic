@@ -20,7 +20,7 @@ Page({
     mySonglist: [],
     myArtist: []
   },
-  onLoad(opts){
+  onLoad(){
     this.setData({
       playerData: wx.getStorageSync('playerData')
     })

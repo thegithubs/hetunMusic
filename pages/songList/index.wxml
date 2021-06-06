@@ -14,7 +14,7 @@
 </view>
 <view class="titleBar size32" hover-class="hover" bindtap="palyAll">
   <view class="iconfont icon-timeout icontimeout"></view>
-  播放全部 <text class="c6 size28">(共{{result.trackCount || 0}}首)</text>
+  播放全部 <text class="c6 size28">(共{{result.tracks.length || 0}}首)</text>
   <view
     class="add {{isAdd ? 'isAdd' : ''}}"
     data-isadd="{{isAdd ? 1 : -1}}"
@@ -28,7 +28,7 @@
 </view>
 <loading-component wx:if="{{loading}}" />
 <view class="songItem" wx:else>
-  <view class="dFlex songItem-n" hover-class="tap" wx:for="{{result.tracks}}" wx:key="id" bindtap="player" data-id="{{item.id}}" data-author="{{util.concat(item.ar)}}">
+  <view class="dFlex songItem-n" hover-class="tap" wx:for="{{result.tracks}}" wx:key="id" bindtap="go2player" data-id="{{item.id}}" data-author="{{util.concat(item.ar)}}">
     <view class="c6 songItem-index">{{index + 1}}</view>
     <view class="flex1 songItem-n-info">
       <view class="size30 hidden">{{item.name}}<text class="c6" wx:if="{{item.alias.length > 0}}"> ({{item.alias[0]}})</text></view>
@@ -37,4 +37,4 @@
   </view>
 </view>
 
-<Player playerData="{{playerData}}" />
+<Player id="player" />

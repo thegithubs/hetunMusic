@@ -66,7 +66,7 @@ Page({
   onReachBottom(){
     //滑到底部
     if (this.data.isEnd || this.data.loading) return;
-    let offset = this.data.offset * this.data.limit;
+    let offset = (this.data.offset + 1) * this.data.limit;
     this.setData({
       offset,
     });
